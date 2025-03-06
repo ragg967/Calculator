@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strings"
 
 	"github.com/ragg967/GoCalculator/pkg/lexer"
 	"github.com/ragg967/GoCalculator/pkg/parser"
@@ -28,10 +31,31 @@ func Calculate(expression string) (float64, error) {
 }
 
 func main() {
-	result, err := Calculate("3 + 3 * 2")
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
+	fmt.Println("GoCalculator - Enter an expression (or 'exit' to quit):")
+
+	scanner := bufio.NewScanner(os.Stdin)
+
+	for {
+		fmt.Print(">")
+		if !scanner.Scan() {
+			break
+		}
+		input := strings.TrimSpace(scanner.Text())
+
+		if strings.ToLower(input) == "exit" {
+			fmt.Println("Goodbye!")
+			return
+		}
+
+		result, err := Calculate(input)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+		fmt.Printf("Result: %v\n", result)
+
 	}
-	fmt.Println(result)
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintln(os.Stderr, "Reading input:", err)
+	}
 }

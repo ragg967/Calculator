@@ -10,6 +10,8 @@ const (
 	DIVIDE
 	LPAREN
 	RPAREN
+	SQUAREROOT
+	EXPONENT
 )
 
 type Token struct {

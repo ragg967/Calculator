@@ -2,6 +2,7 @@ package ast
 
 import (
 	"fmt"
+	"math"
 
 	"github.com/ragg967/GoCalculator/pkg/token"
 )
@@ -47,6 +48,10 @@ func (n BinaryOpNode) Evaluate() (float64, error) {
 			return 0, fmt.Errorf("division by zero")
 		}
 		return leftVal / rightVal, nil
+	case token.EXPONENT:
+		return math.Pow(leftVal, rightVal), nil
+	case token.SQUAREROOT:
+		return math.Pow(leftVal, 1/rightVal), nil
 	default:
 		return 0, fmt.Errorf("unknown operator")
 	}

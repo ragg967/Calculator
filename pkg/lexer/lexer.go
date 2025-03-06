@@ -39,6 +39,30 @@ func Tokenize(expression string) ([]token.Token, error) {
 				currentNumber = ""
 			}
 			tokens = append(tokens, token.Token{Type: token.DIVIDE, Value: "/"})
+		case char == '(':
+			if currentNumber != "" {
+				tokens = append(tokens, token.Token{Type: token.NUMBER, Value: currentNumber})
+				currentNumber = ""
+			}
+			tokens = append(tokens, token.Token{Type: token.LPAREN, Value: "("})
+		case char == ')':
+			if currentNumber != "" {
+				tokens = append(tokens, token.Token{Type: token.NUMBER, Value: currentNumber})
+				currentNumber = ""
+			}
+			tokens = append(tokens, token.Token{Type: token.RPAREN, Value: ")"})
+		case char == '^':
+			if currentNumber != "" {
+				tokens = append(tokens, token.Token{Type: token.NUMBER, Value: currentNumber})
+				currentNumber = ""
+			}
+			tokens = append(tokens, token.Token{Type: token.EXPONENT, Value: "^"})
+		case char == '%':
+			if currentNumber != "" {
+				tokens = append(tokens, token.Token{Type: token.NUMBER, Value: currentNumber})
+				currentNumber = ""
+			}
+			tokens = append(tokens, token.Token{Type: token.SQUAREROOT, Value: "%"})
 		case unicode.IsSpace(char):
 			if currentNumber != "" {
 				tokens = append(tokens, token.Token{Type: token.NUMBER, Value: currentNumber})
