@@ -49,13 +49,12 @@ func main() {
 
 		if strings.ToLower(input) == "operators" {
 			fmt.Println("Addition: +\nSubtraction: -\nMultiplication: *\nDivision: /\nExponent: ^\nSquare Root: %")
-			return
+			continue
 		}
 
 		result, err := Calculate(input)
 		if err != nil {
 			fmt.Println("Error:", err)
-			return
 		}
 		fmt.Printf("Result: %v\n", result)
 
