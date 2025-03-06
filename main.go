@@ -2,53 +2,36 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"strconv"
 
-	"github.com/ragg967/GoCalculator/calculate" // Updated import path
+	"github.com/ragg967/GoCalculator/pkg/lexer"
+	"github.com/ragg967/GoCalculator/pkg/parser"
 )
 
+func Calculate(expression string) (float64, error) {
+
+	tokens, err := lexer.Tokenize(expression)
+	if err != nil {
+		return 0, err
+	}
+
+	ast, err := parser.Parse(tokens)
+	if err != nil {
+		return 0, err
+	}
+
+	result, err := ast.Evaluate()
+	if err != nil {
+		return 0, err
+	}
+
+	return result, nil
+}
+
 func main() {
-	if len(os.Args) != 4 {
-		fmt.Println("Usage: go run main.go <num1> <operator> <num2>")
-		return
-	}
-
-	num1Str := os.Args[1]
-	operator := os.Args[2]
-	num2Str := os.Args[3]
-
-	num1, err := strconv.ParseFloat(num1Str, 64)
+	result, err := Calculate("3 + 3 * 2")
 	if err != nil {
-		fmt.Println("Error parsing num1:", err)
+		fmt.Println("Error:", err)
 		return
 	}
-
-	num2, err := strconv.ParseFloat(num2Str, 64)
-	if err != nil {
-		fmt.Println("Error parsing num2:", err)
-		return
-	}
-
-	var result float64
-
-	switch operator {
-	case "+":
-		result = calculate.Add(num1, num2) // Updated package name
-	case "-":
-		result = calculate.Subtract(num1, num2) // Updated package name
-	case "x":
-		result = calculate.Multiply(num1, num2) // Updated package name
-	case "/":
-		result, err = calculate.Divide(num1, num2) // Updated package name
-		if err != nil {
-			fmt.Println("Error:", err)
-			return
-		}
-	default:
-		fmt.Println("Unknown operator:", operator)
-		return
-	}
-
-	fmt.Printf("Result: %f\n", result)
+	fmt.Println(result)
 }

@@ -1,6 +1,9 @@
 package calculate
 
-import "errors"
+import (
+	"errors"
+	"math"
+)
 
 func Add(num1, num2 float64) float64 {
 	return num1 + num2
@@ -19,4 +22,12 @@ func Divide(num1, num2 float64) (float64, error) {
 		return 0, errors.New("division by zero")
 	}
 	return num1 / num2, nil
+}
+
+func Exponent(num1, num2 float64) float64 {
+	return math.Pow(num1, num2)
+}
+
+func Root(num1, num2 float64) float64 {
+	return math.Pow(num1, 1/num2)
 }

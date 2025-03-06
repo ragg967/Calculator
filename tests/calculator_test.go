@@ -1,6 +1,7 @@
 package calculate_test
 
 import (
+	"math"
 	"testing"
 
 	"github.com/ragg967/GoCalculator/calculate" // Updated import path
@@ -48,4 +49,21 @@ func TestDivide(t *testing.T) {
 			t.Error("Divide(10, 0) expected an error, got nil")
 		}
 	})
+}
+
+func TestExponent(t *testing.T) {
+	result := calculate.Exponent(5, 5)
+	expected := 3125.0
+	if result != expected {
+		t.Errorf("Exponent(5, 5) = %f; want %f", result, expected)
+	}
+}
+
+func TestRoot(t *testing.T) {
+	result := calculate.Root(5, 2)
+	expected := 2.236068
+	tolerance := 1e-6
+	if math.Abs(result-expected) > tolerance {
+		t.Errorf("Root(5, 2) = %f; want %f", result, expected)
+	}
 }
