@@ -31,7 +31,7 @@ func Calculate(expression string) (float64, error) {
 }
 
 func main() {
-	fmt.Println("GoCalculator - Enter an expression (or 'exit' to quit):")
+	fmt.Println("GoCalculator - Enter an expression ('exit' to quit and 'operators' to show all operators and what they do):")
 
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -44,6 +44,11 @@ func main() {
 
 		if strings.ToLower(input) == "exit" {
 			fmt.Println("Goodbye!")
+			return
+		}
+
+		if strings.ToLower(input) == "operators" {
+			fmt.Println("Addition: +\nSubtraction: -\nMultiplication: *\nDivision: /\nExponent: ^\nSquare Root: %")
 			return
 		}
 
