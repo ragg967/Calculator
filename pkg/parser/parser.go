@@ -9,7 +9,6 @@ import (
 )
 
 func Parse(tokens []token.Token) (ast.Node, error) {
-
 	var parseExpression func(int) (ast.Node, int, error)
 	var parseFactor func(int) (ast.Node, int, error)
 	var parseTerm func(int) (ast.Node, int, error)
@@ -20,11 +19,11 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 		}
 
 		if tokens[start].Type == token.NUMBER {
-			Value, err := strconv.ParseFloat(tokens[start].Value, 64)
+			value, err := strconv.ParseFloat(tokens[start].Value, 64)
 			if err != nil {
 				return nil, 0, err
 			}
-			return ast.NumberNode{Value: Value}, start + 1, nil
+			return ast.NumberNode{Value: value}, start + 1, nil
 		}
 
 		if tokens[start].Type == token.LPAREN {
@@ -54,7 +53,7 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 			operator := tokens[nextIndex].Type
 			nextIndex++
 
-			rightNode, nextIndex, err := parseFactor(start)
+			rightNode, newNextIndex, err := parseFactor(nextIndex) // Fixed: using nextIndex instead of start
 			if err != nil {
 				return nil, 0, err
 			}
@@ -64,13 +63,12 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 				Right:    rightNode,
 				Operator: operator,
 			}
-			nextIndex = nextIndex
+			nextIndex = newNextIndex // Fixed: updating nextIndex properly
 		}
 		return leftNode, nextIndex, nil
 	}
 
 	parseExpression = func(start int) (ast.Node, int, error) {
-
 		leftNode, nextIndex, err := parseTerm(start)
 		if err != nil {
 			return nil, 0, err
@@ -84,7 +82,7 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 			operator := tokens[nextIndex].Type
 			nextIndex++
 
-			rightNode, newIndex, err := parseTerm(nextIndex)
+			rightNode, newNextIndex, err := parseTerm(nextIndex)
 			if err != nil {
 				return nil, 0, err
 			}
@@ -94,7 +92,7 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 				Right:    rightNode,
 				Operator: operator,
 			}
-			nextIndex = newIndex
+			nextIndex = newNextIndex
 		}
 		return leftNode, nextIndex, nil
 	}
