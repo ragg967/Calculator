@@ -1,1 +1,1 @@
-A fully functioning calculator written in Go and my first project
+A fully functioning CLI calculator written in Go and my first project
