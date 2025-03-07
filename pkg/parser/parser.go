@@ -9,11 +9,11 @@ import (
 )
 
 func Parse(tokens []token.Token) (ast.Node, error) {
-	var parseExpression func(int) (ast.Node, int, error)
-	var parseFactor func(int) (ast.Node, int, error)
-	var parseTerm func(int) (ast.Node, int, error)
+	// Define parsing functions using mutual recursion
+	var parseExpression, parseTerm, parseFactor, parsePrimary func(int) (ast.Node, int, error)
 
-	parseFactor = func(start int) (ast.Node, int, error) {
+	// Primary: numbers and parenthesized expressions
+	parsePrimary = func(start int) (ast.Node, int, error) {
 		if start >= len(tokens) {
 			return nil, 0, fmt.Errorf("unexpected end of expression")
 		}
@@ -40,6 +40,37 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 		return nil, 0, fmt.Errorf("unexpected token: %v", tokens[start])
 	}
 
+	// Factor: exponents and square roots
+	parseFactor = func(start int) (ast.Node, int, error) {
+		leftNode, nextIndex, err := parsePrimary(start)
+		if err != nil {
+			return nil, 0, err
+		}
+
+		for nextIndex < len(tokens) {
+			if tokens[nextIndex].Type != token.EXPONENT && tokens[nextIndex].Type != token.SQUAREROOT {
+				break
+			}
+
+			operator := tokens[nextIndex].Type
+			nextIndex++
+
+			rightNode, newNextIndex, err := parsePrimary(nextIndex)
+			if err != nil {
+				return nil, 0, err
+			}
+
+			leftNode = ast.BinaryOpNode{
+				Left:     leftNode,
+				Right:    rightNode,
+				Operator: operator,
+			}
+			nextIndex = newNextIndex
+		}
+		return leftNode, nextIndex, nil
+	}
+
+	// Term: multiplication and division
 	parseTerm = func(start int) (ast.Node, int, error) {
 		leftNode, nextIndex, err := parseFactor(start)
 		if err != nil {
@@ -68,6 +99,7 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 		return leftNode, nextIndex, nil
 	}
 
+	// Expression: addition and subtraction
 	parseExpression = func(start int) (ast.Node, int, error) {
 		leftNode, nextIndex, err := parseTerm(start)
 		if err != nil {
@@ -98,37 +130,14 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 		return leftNode, nextIndex, nil
 	}
 
-	parseExpression = func(start int) (ast.Node, int, error) {
-
-		leftNode, nextIndex, err := parseTerm(start)
-		if err != nil {
-			return nil, 0, err
-		}
-
-		for nextIndex < len(tokens) {
-			if tokens[nextIndex].Type != token.EXPONENT && tokens[nextIndex].Type != token.SQUAREROOT {
-				break
-			}
-
-			operator := tokens[nextIndex].Type
-			nextIndex++
-
-			rightNode, newNextIndex, err := parseTerm(nextIndex)
-			if err != nil {
-				return nil, 0, err
-			}
-
-			leftNode = ast.BinaryOpNode{
-				Left:     leftNode,
-				Right:    rightNode,
-				Operator: operator,
-			}
-			nextIndex = newNextIndex
-		}
-
-		return leftNode, nextIndex, nil
+	node, nextIndex, err := parseExpression(0)
+	if err != nil {
+		return nil, err
 	}
 
-	node, _, err := parseExpression(0)
-	return node, err
+	if nextIndex < len(tokens) {
+		return nil, fmt.Errorf("unexpected token at end: %v", tokens[nextIndex])
+	}
+
+	return node, nil
 }
