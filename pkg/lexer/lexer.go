@@ -51,6 +51,7 @@ func Tokenize(expression string) ([]token.Token, error) {
 				currentNumber = ""
 			}
 			tokens = append(tokens, token.Token{Type: token.RPAREN, Value: ")"})
+<<<<<<< HEAD
 		case char == '^':
 			if currentNumber != "" {
 				tokens = append(tokens, token.Token{Type: token.NUMBER, Value: currentNumber})
@@ -63,6 +64,8 @@ func Tokenize(expression string) ([]token.Token, error) {
 				currentNumber = ""
 			}
 			tokens = append(tokens, token.Token{Type: token.SQUAREROOT, Value: "%"})
+=======
+>>>>>>> 1d5bcf5bc3af324ac377cbd7cf970ce907ae296f
 		case unicode.IsSpace(char):
 			if currentNumber != "" {
 				tokens = append(tokens, token.Token{Type: token.NUMBER, Value: currentNumber})

@@ -9,7 +9,6 @@ import (
 )
 
 func Parse(tokens []token.Token) (ast.Node, error) {
-
 	var parseExpression func(int) (ast.Node, int, error)
 	var parseFactor func(int) (ast.Node, int, error)
 	var parseTerm func(int) (ast.Node, int, error)
@@ -54,7 +53,11 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 			operator := tokens[nextIndex].Type
 			nextIndex++
 
+<<<<<<< HEAD
 			rightNode, newNextIndex, err := parseFactor(nextIndex)
+=======
+			rightNode, newNextIndex, err := parseFactor(nextIndex) // Fixed: using nextIndex instead of start
+>>>>>>> 1d5bcf5bc3af324ac377cbd7cf970ce907ae296f
 			if err != nil {
 				return nil, 0, err
 			}
@@ -64,13 +67,16 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 				Right:    rightNode,
 				Operator: operator,
 			}
+<<<<<<< HEAD
 			nextIndex = newNextIndex
+=======
+			nextIndex = newNextIndex // Fixed: updating nextIndex properly
+>>>>>>> 1d5bcf5bc3af324ac377cbd7cf970ce907ae296f
 		}
 		return leftNode, nextIndex, nil
 	}
 
 	parseExpression = func(start int) (ast.Node, int, error) {
-
 		leftNode, nextIndex, err := parseTerm(start)
 		if err != nil {
 			return nil, 0, err
