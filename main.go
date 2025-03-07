@@ -48,7 +48,7 @@ func main() {
 		}
 
 		if strings.ToLower(input) == "operators" {
-			fmt.Println("Addition: +\nSubtraction: -\nMultiplication: *\nDivision: /\nExponent: ^\nSquare Root: %")
+			fmt.Println("Addition: 5 + 5 = 10\nSubtraction: 10 - 5 = 5\nMultiplication: 5 * 2 = 10\nDivision: 10 / 2 = 5\nExponent: 5 ^ 2 = 10\nSquare Root: 25 % 2 = 5")
 			continue
 		}
 
