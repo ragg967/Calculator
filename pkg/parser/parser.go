@@ -53,11 +53,7 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 			operator := tokens[nextIndex].Type
 			nextIndex++
 
-<<<<<<< HEAD
 			rightNode, newNextIndex, err := parseFactor(nextIndex)
-=======
-			rightNode, newNextIndex, err := parseFactor(nextIndex) // Fixed: using nextIndex instead of start
->>>>>>> 1d5bcf5bc3af324ac377cbd7cf970ce907ae296f
 			if err != nil {
 				return nil, 0, err
 			}
@@ -67,11 +63,7 @@ func Parse(tokens []token.Token) (ast.Node, error) {
 				Right:    rightNode,
 				Operator: operator,
 			}
-<<<<<<< HEAD
 			nextIndex = newNextIndex
-=======
-			nextIndex = newNextIndex // Fixed: updating nextIndex properly
->>>>>>> 1d5bcf5bc3af324ac377cbd7cf970ce907ae296f
 		}
 		return leftNode, nextIndex, nil
 	}
