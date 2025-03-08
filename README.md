@@ -10,7 +10,7 @@ Calculator is a Command Line Interface (CLI) calculator written in Go.
 
 ## Installation
 
-To install the calculator, clone the repository and build the project using Go:
+To install the calculator, clone the repository and build the project using Go or use the prebuilt binary's:
 
 ```sh
 git clone https://github.com/ragg967/Calculator.git
@@ -31,15 +31,14 @@ You will be prompted to enter an expression. Type your expression and press Ente
 ### Example
 
 ```sh
-GoCalculator - Enter an expression ('exit' to quit and 'operators' to show all operators and what they do):
-> 5 + 5
-Result: 10
-> 10 / 2
-Result: 5
-> 2 ^ 3
-Result: 8
-> 25 % 2
-Result: 5
+Calculator - Enter an expression ('exit' to quit and 'operators' to show all operators and what they do):
+Parenthesis: 2 * (3 + 3) = 12
+Exponent: 5 ^ 2 = 25
+Multiplication: 5 * 2 = 10
+Division: 10 / 2 = 5
+Addition: 5 + 5 = 10
+Subtraction: 10 - 5 = 5
+Square Root: 25 % 2 = 5
 > exit
 Goodbye!
 ```

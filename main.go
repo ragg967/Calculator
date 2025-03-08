@@ -31,7 +31,7 @@ func Calculate(expression string) (float64, error) {
 }
 
 func main() {
-	fmt.Println("GoCalculator - Enter an expression ('exit' to quit and 'operators' to show all operators and what they do):")
+	fmt.Println("Calculator - Enter an expression ('exit' to quit and 'operators' to show all operators and what they do):")
 
 	scanner := bufio.NewScanner(os.Stdin)
 
