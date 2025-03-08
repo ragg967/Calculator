@@ -2,38 +2,56 @@
 
 Calculator is a Command Line Interface (CLI) calculator written in Go.
 
-## Installation/Usage
+## Features
 
-To run the calculator, you can use GitHub Actions to build and test the project without needing to install Go on your local machine.
+- Supports basic arithmetic operations: addition, subtraction, multiplication, and division.
+- Supports exponentiation and square root operations.
+- Handles parenthesized expressions for proper order of operations.
 
-### Using GitHub Actions for CI/CD
+## Installation
 
-This project uses GitHub Actions for Continuous Integration and Continuous Deployment (CI/CD).
+To install the calculator, clone the repository and build the project using Go:
 
-### Workflow Details
+```sh
+git clone https://github.com/ragg967/Calculator.git
+cd Calculator
+go build -o calculator main.go
+```
 
-The workflow is defined in the `.github/workflows/go.yml` file and includes the following steps:
-- Checkout code
-- Set up Go environment
-- Install dependencies
-- Build the project
-- Run tests
-- Upload build artifacts
+## Usage
 
-### Running the CI/CD Workflow
+To run the calculator, execute the built binary:
 
-The CI/CD workflow runs automatically on `push` and `pull_request` events to the `main` branch. You can view the workflow status and logs in the "Actions" tab of the repository.
+```sh
+./calculator
+```
 
-### Downloading Built Artifacts
+You will be prompted to enter an expression. Type your expression and press Enter to see the result. Type `exit` to quit the calculator or `operators` to see the list of supported operators.
 
-1. **Navigate to the Actions Tab:**
-   Go to the "Actions" tab in the GitHub repository.
+### Example
 
-2. **Select the Workflow Run:**
-   Click on the workflow run you are interested in.
+```sh
+GoCalculator - Enter an expression ('exit' to quit and 'operators' to show all operators and what they do):
+> 5 + 5
+Result: 10
+> 10 / 2
+Result: 5
+> 2 ^ 3
+Result: 8
+> 25 % 2
+Result: 5
+> exit
+Goodbye!
+```
 
-3. **Download the Artifacts:**
-   Locate the "Upload build artifacts" step and click on the link to download the compiled binary.
+## Supported Operators
+
+- Addition: `+`
+- Subtraction: `-`
+- Multiplication: `*`
+- Division: `/`
+- Exponentiation: `^`
+- Square Root: `%`
 
 ## Contribution
 
