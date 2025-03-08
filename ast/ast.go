@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/ragg967/GoCalculator/pkg/token"
+	"github.com/ragg967/Calculator/token"
 )
 
 type Node interface {

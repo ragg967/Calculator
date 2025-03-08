@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ragg967/GoCalculator/pkg/lexer"
-	"github.com/ragg967/GoCalculator/pkg/parser"
+	"github.com/ragg967/Calculator/lexer"
+	"github.com/ragg967/Calculator/parser"
 )
 
 func Calculate(expression string) (float64, error) {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/ragg967/GoCalculator/pkg/ast"
-	"github.com/ragg967/GoCalculator/pkg/token"
+	"github.com/ragg967/Calculator/ast"
+	"github.com/ragg967/Calculator/token"
 )
 
 func Parse(tokens []token.Token) (ast.Node, error) {
