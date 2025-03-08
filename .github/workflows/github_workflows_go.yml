@@ -1,4 +1,4 @@
-name: Go
+name: Go CI/CD
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -29,3 +30,9 @@ jobs:
 
     - name: Run tests
       run: go test -v ./...
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: binary
+        path: ./calculator
