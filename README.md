@@ -39,8 +39,7 @@ Division: 10 / 2 = 5
 Addition: 5 + 5 = 10
 Subtraction: 10 - 5 = 5
 Square Root: 25 % 2 = 5
-> exit
-Goodbye!
+Exit: Goodbye!
 ```
 
 ## Supported Operators
